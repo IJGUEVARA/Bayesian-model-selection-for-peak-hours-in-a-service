@@ -1,5 +1,8 @@
-proposal <- function(r) rtruncnorm(n = 1, a = 0, 
-                                   b = Inf, mean = r, sd = 0.5)
+# LIBRARIES
+library(circular)
+library(truncnorm)
+library(mvtnorm)
+
 # DENSITY PROYECTED NORMAL IDENTITY COV -----------------------------------
 
 # Evaluates the density of the proyected normal through a vector of means
