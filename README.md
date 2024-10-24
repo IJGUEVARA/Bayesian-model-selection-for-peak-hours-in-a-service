@@ -90,7 +90,7 @@ model = model==1
 
 ### Gibbs sampling algorithm
 
-Now we initialitize the Gibbs algorithm, we start with a random number of clusters and sticks generated from the prior using an intial concentration parameter of 2. The initial values of the parameters are also simulated from the prior. Additionaly, we create all the objects necessary to store the results. To exemplify, we fixed the chain size in 10000
+Now we initialitize the Gibbs algorithm, we start with a random number of clusters and sticks generated from the prior using an intial concentration parameter of 2. The initial values of the parameters are also simulated from the prior. Additionaly, we create all the objects necessary to store the results. To exemplify, we fixed the chain size in 10000.
 
 ```r
 # CHOOSE RANDOM NUMBER OF CLUSTERS --------------------------------------
@@ -435,18 +435,8 @@ fyt=wndens(circular(as.numeric(2*atan(x3%*%b1_og)+pi)),
 CircplotEst(fym3[nburn:num,],datos[x[,2]==x3[2]],fyt,9,1.5)
 
 ```
-The resulting **Figure 2** of the paper proceeds as follows.
+Finally, **Figure 2** of the paper is produced
 
 Imagen
 ![]( )
-
-
-
-# Computing posterior probability for models
-
-
-```r
-set.seed(123)
-
-```
 
