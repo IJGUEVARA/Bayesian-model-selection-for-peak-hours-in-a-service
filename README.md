@@ -1,6 +1,6 @@
 # Bayesian flexible model selection for analyzing linear-circular peak service hours data
-In this tutorial we describe the steps for obtaining the results of the wrapped normal example of **Section 4** of the paper [nombres][link].
-As a preliminary step, we load on a clean environment all the required libraries.
+In this tutorial we describe the steps for obtaining the results of the wrapped normal example of **Section 4** of the paper [Bayesian flexible model selection for analyzing linear-circular peak service hours data][link].
+First, we load on a clean environment all the required libraries.
 
 ```r
 rm(list=ls())    # Clean the current session
