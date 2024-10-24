@@ -93,9 +93,7 @@ model = model==1
 ### Gibbs sampling algorithm
 
 #### Initialization  
-The algorithm begins with a random number of clusters and stick-breaking weights drawn from the prior, using an initial concentration parameter of 2. Parameter values are also initialized from the prior distribution. 
-
-To store the results, we preallocate all necessary objects. As an example, we fix the chain length at 10,000 iterations. After running the MCMC, we discard 50% of the chain as burn-in. This burn-in period can be adjusted by setting **nburn** to the desired percentage.  
+The algorithm begins with a random number of clusters and stick-breaking weights drawn from the prior, using an initial concentration parameter of 2. Parameter values are also initialized from the prior distribution. To store the results, we preallocate all necessary objects. As an example, we fix the chain length at 10,000 iterations. 
 
 
 ```r
