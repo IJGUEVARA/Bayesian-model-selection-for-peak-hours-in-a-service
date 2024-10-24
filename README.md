@@ -42,7 +42,7 @@ for (i in 1:n) {
 }
 ```
 
-Notice that only the first covariate is relevant, taking on three possible values: \(0, 1,\) and \(-1\). We evaluate the predictive density for the following vectors to compare the true densities.
+Notice that only the first covariate is relevant, taking on three possible values: 0, 1, and -1. We evaluate the predictive density for the following vectors to compare the true densities.
 
 ```r
 x1=c(1,0,0)
