@@ -1,6 +1,7 @@
-# Bayesian flexible model selection for analyzing linear-circular peak service hours data
-In this tutorial we describe the steps for obtaining the results of the wrapped normal example of **Section 4** of the paper **"Bayesian flexible model selection for analyzing linear-circular peak service hours data"**.
-First, we load on a clean environment all the required libraries. Also, we load the R script with all the auxiliary functions
+# Bayesian model selection for analyzing predictor-dependent directional data
+
+In this tutorial, we describe the steps for obtaining the results of the wrapped normal example of **Section 5** of the paper **"Bayesian model selection for analyzing predictor-dependent directional data"**. We begin by loading all the required libraries in a clean environment. Additionally, we load the R script containing the auxiliary functions.
+
 
 ```r
 rm(list=ls())    # Clean the current session
@@ -11,7 +12,7 @@ source("functions.R")
 ```
 
 ## Data generation
-We generate a 1000x3 design matrix with two covariates. Also, we generate a vector with 100 values in the interval [0,2pi] to evaluate the density. Be aware package circular requires to use an object of class circular in its functions, otherwise it will draw warnings repeatedly.
+We generate a \(1000 \times 3\) design matrix with two covariates. Furthermore, we create a vector of 100 values within the interval \([0, 2\pi]\) to evaluate the density. Be aware that package circular requires using an object of class circular in its functions. Otherwise, it will draw warnings repeatedly.
 
 ```r
 set.seed(1234)
@@ -21,7 +22,7 @@ p=seq(0,2*pi,length.out = 100)
 ph=circular(p) # POINTS TO PLOT DENSITY
 ```
 
-Then, we generate from a mixture of wrapped normal distributions with the following coefficients:
+Next, we generate data from a **mixture of wrapped normal distributions** with the following coefficients.
 
 ```r
 #Regression coeffients mixture
@@ -41,7 +42,7 @@ for (i in 1:n) {
 }
 ```
 
-Notice, only the first covariate is relevant. We have three possible values: 0,1,-1. Thus, we will evaluate the predictive density for the following vectors to compare its theorical density
+Notice that only the first covariate is relevant, taking on three possible values: \(0, 1,\) and \(-1\). We evaluate the predictive density for the following vectors to compare the true densities.
 
 ```r
 x1=c(1,0,0)
@@ -52,7 +53,8 @@ x3=c(1,-1,0)
 
 ## Dirichlet process mixture of projected normal distribution with spike-and-slab
 ### Hyperparameters
-We set the hyperparameters for the base measure and the concetration parameter, also we compute the direction vector for the data
+We define the hyperparameters for the base measure and the concentration parameter. Additionally, we compute the direction vector for the data.
+
 ```r
 # SETTING HYPERPARAMETERS -------------------------------------------------
 
@@ -74,7 +76,7 @@ am=20 # SHAPE
 bm=0.1 # RATE
 ```
 ### Models
-We list the models, in this example there are 8 possibilities.
+We list the models. The example includes eight potential models.
 
 ```r
 # POSSIBLE MODELS ----------------------------------------------------------
@@ -90,8 +92,11 @@ model = model==1
 
 ### Gibbs sampling algorithm
 
-### Initialitize
-W start with a random number of clusters and sticks generated from the prior using an intial concentration parameter of 2. The initial values of the parameters are also simulated from the prior. Additionaly, we create all the objects necessary to store the results. To exemplify, we fixed the chain size in 10000.
+#### Initialization  
+The algorithm begins with a random number of clusters and stick-breaking weights drawn from the prior, using an initial concentration parameter of 2. Parameter values are also initialized from the prior distribution. 
+
+To store the results, we preallocate all necessary objects. As an example, we fix the chain length at 10,000 iterations. After running the MCMC, we discard 50% of the chain as burn-in. This burn-in period can be adjusted by setting **nburn** to the desired percentage.  
+
 
 ```r
 # CHOOSE RANDOM NUMBER OF CLUSTERS --------------------------------------
@@ -154,7 +159,7 @@ fym3 = matrix(NA,ncol = 100, nrow = num) # STORE DENSITY ESTIMATIONS x3
 ``````
 #### MCMC 
 
-Now the MCMC will start, the density values and the model indexes are stored for processing afterwards.
+Now MCMC starts, the density values and the model indexes are stored for processing.
 
 ```r
 
@@ -375,7 +380,8 @@ for (it in 1:num) {
 
 ``````
 
-After running the MCMC, the 50% of the chain is burned. The burning period can be changed in the code, just fixing **nburn** in the desired percentage. The posterior probability of each model is computed using the results. As explained in the article the models are represented by binary vectors, in the code all the vector have 1 in the first column because it corresponds to the intercept, which is always included.
+After running the MCMC, the 50% of the chain is burned. The burning period can be changed in the code, just fixing **nburn** in the desired percentage. The posterior probability of each model is computed using the results. As explained in the article, models are represented by binary vectors. In the code, each vector has a 1 in the first column, indicating the intercept, which is always included.  
+
 
 ```r
 nburn=round(num*0.5+1)
@@ -395,27 +401,18 @@ print(prop.table(table(res)))
 
 ## Results
 
-Now, the true density can be evaluated with the following function
+The true density can be evaluated with the following function:
 
 ```r
 wndens=function(t1, t2,t3){0.4*dwrappednormal(ph, t1, sd=0.25)+
     0.3*dwrappednormal(ph, t2, sd=0.25)+0.3*dwrappednormal(ph, t3, sd = 0.25)}
 ```
 
-The following piece of code plots the true density, the conditional rose diagrams, the predictive density and the credibility interval for each case. We use a customize function to produce the graphics, which is included in the functions.R file. 
+The following code generates plots of the true density, conditional rose diagrams, predictive density, and credibility intervals for each case. A customized function from the functions.R script is used to create the graphics.
 
 ```r
 
 # Function plot circle ----------------------------------------------------
-
-# index of model with highest post probability
-m1=as.numeric(names(sort(-table(model_beta1)))[1])
-m2=as.numeric(names(sort(-table(model_beta2)))[1])
-
-
-fyt=wndens(circular(as.numeric(2*atan(x3%*%b1_og)+pi)),
-            circular(as.numeric(2*atan(x3%*%b2_og)+pi)),
-            circular(as.numeric(2*atan(x3%*%b3_og)+pi)))
 
 par(mar = c(0,0,0,0), mfrow=c(1,3))
 
@@ -433,8 +430,8 @@ fyt=wndens(circular(as.numeric(2*atan(x2%*%b1_og)+pi)),
            circular(as.numeric(2*atan(x2%*%b3_og)+pi)))
 
 CircplotEst(fym2[nburn:num,],datos[x[,2]==x1[1]],fyt,9,1.5)
-# True density for vector x1
 
+# True density for vector x3
 fyt=wndens(circular(as.numeric(2*atan(x3%*%b1_og)+pi)),
            circular(as.numeric(2*atan(x3%*%b2_og)+pi)),
            circular(as.numeric(2*atan(x3%*%b3_og)+pi)))
@@ -443,7 +440,7 @@ fyt=wndens(circular(as.numeric(2*atan(x3%*%b1_og)+pi)),
 CircplotEst(fym3[nburn:num,],datos[x[,2]==x3[2]],fyt,9,1.5)
 
 ```
-Finally, **Figure 1** of the paper is produced
+Finally, the code generates **Figure 1** from the paper.
 
 ![Density estimation for wrapped normal mixture](CircWNdens.png)
 
