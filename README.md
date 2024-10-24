@@ -12,7 +12,7 @@ source("functions.R")
 ```
 
 ## Data generation
-We generate a \(1000 \times 3\) design matrix with two covariates. Furthermore, we create a vector of 100 values within the interval \([0, 2\pi]\) to evaluate the density. Be aware that package circular requires using an object of class circular in its functions. Otherwise, it will draw warnings repeatedly.
+We generate a 1000 x 3 design matrix with two covariates. Furthermore, we create a vector of 100 values to evaluate the density. Be aware that package circular requires using an object of class circular in its functions. Otherwise, it will draw warnings repeatedly.
 
 ```r
 set.seed(1234)
