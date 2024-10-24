@@ -444,6 +444,5 @@ CircplotEst(fym3[nburn:num,],datos[x[,2]==x3[2]],fyt,9,1.5)
 ```
 Finally, **Figure 2** of the paper is produced
 
-Imagen
 ![Density estimation for wrapped normal mixture](CircWNdens.png)
 
