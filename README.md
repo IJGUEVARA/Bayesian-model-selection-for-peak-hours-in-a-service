@@ -1,5 +1,5 @@
 # Bayesian flexible model selection for analyzing linear-circular peak service hours data
-In this tutorial we describe the steps for obtaining the results of the wrapped normal example of **Section 4** of the paper "Bayesian flexible model selection for analyzing linear-circular peak service hours data".
+In this tutorial we describe the steps for obtaining the results of the wrapped normal example of **Section 4** of the paper **"Bayesian flexible model selection for analyzing linear-circular peak service hours data"**.
 First, we load on a clean environment all the required libraries. Also, we load the R script with all the auxiliary functions
 
 ```r
@@ -374,13 +374,20 @@ for (it in 1:num) {
 
 ``````
 
-After running the MCMC, the 50% of the chain is burned. The burning period can be changed in the code, just fixing **nburn** in the desired percentage.
+After running the MCMC, the 50% of the chain is burned. The burning period can be changed in the code, just fixing **nburn** in the desired percentage. The posterior probability of each model is computed using the results. As explained in the article the models are represented by binary vectors, in the code all the vector have 1 in the first column because it corresponds to the intercept, which is always included.
 
 ```r
 nburn=round(num*0.5+1)
 
 model_beta1=samples_g1[nburn:num]
 model_beta2=samples_g2[nburn:num]
+
+# Models (gamma) post probability
+
+res=unique(apply(unique(model[model_beta1,]+model[model_beta2,]
+                        -model[model_beta1,]*model[model_beta2,]), 
+                        1, paste, collapse = ""))
+print(prop.table(table(res)))
 
 ```
 
@@ -394,7 +401,7 @@ wndens=function(t1, t2,t3){0.4*dwrappednormal(ph, t1, sd=0.25)+
     0.3*dwrappednormal(ph, t2, sd=0.25)+0.3*dwrappednormal(ph, t3, sd = 0.25)}
 ```
 
-The following piece of code plots the true density, the conditional rose diagrams, the predictive density and the credibility interval for each case. We use a customize function to produce the graphics, which is included in the functions.R file.
+The following piece of code plots the true density, the conditional rose diagrams, the predictive density and the credibility interval for each case. We use a customize function to produce the graphics, which is included in the functions.R file. 
 
 ```r
 
