@@ -51,7 +51,7 @@ x3=c(1,-1,0)
 
 
 ## Dirichlet process mixture of projected normal distribution with spike-and-slab
-## Hyperparameters
+### Hyperparameters
 We set the hyperparameters for the base measure and the concetration parameter, also we compute the direction vector for the data
 ```r
 # SETTING HYPERPARAMETERS -------------------------------------------------
@@ -73,7 +73,7 @@ delta0 = diag(invtau,np) # PRIOR PRECISION MATRIX
 am=20 # SHAPE
 bm=0.1 # RATE
 ```
-## Model
+### Models
 We list the models, in this example there are 8 possibilities.
 
 ```r
@@ -88,7 +88,7 @@ model = model==1
 
 ```
 
-## Gibbs sampling algorithm
+### Gibbs sampling algorithm
 
 Now we initialitize the Gibbs algorithm, we start with a random number of clusters and sticks generated from the prior using an intial concentration parameter of 2. The initial values of the parameters are also simulated from the prior. Additionaly, we create all the objects necessary to store the results. To exemplify, we fixed the chain size in 10000
 
@@ -385,7 +385,7 @@ model_beta2=samples_g2[nburn:num]
 ```
 
 
-## Predictive density
+## Results
 
 Now, the true density can be evaluated with the following function
 
@@ -393,8 +393,9 @@ Now, the true density can be evaluated with the following function
 wndens=function(t1, t2,t3){0.4*dwrappednormal(ph, t1, sd=0.25)+
     0.3*dwrappednormal(ph, t2, sd=0.25)+0.3*dwrappednormal(ph, t3, sd = 0.25)}
 ```
-Imagen
-![]( )
+
+The following piece of code plots the true density, the conditional rose diagrams, the predictive density and the credibility interval for each case. We use a customize function to produce the graphics, which is included in the functions.R file.
+
 ```r
 
 # Function plot circle ----------------------------------------------------
@@ -441,8 +442,10 @@ fyt=wndens(circular(as.numeric(2*atan(x3%*%b1_og)+pi)),
 CircplotEst(dens3,datos[x[,2]==x3[2]],fyt,9,1.5)
 
 ```
+The resulting **Figure 2** of the paper proceeds as follows.
 
-
+Imagen
+![]( )
 
 
 
@@ -453,11 +456,4 @@ CircplotEst(dens3,datos[x[,2]==x3[2]],fyt,9,1.5)
 set.seed(123)
 
 ```
-
-The construction of **Figure 2** of the paper proceeds as follows.
-
-```r
-``````
-imagen
-![]()
 
