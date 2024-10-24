@@ -412,34 +412,27 @@ fyt=wndens(circular(as.numeric(2*atan(x3%*%b1_og)+pi)),
 par(mar = c(0,0,0,0), mfrow=c(1,3))
 
 # Conditional rose diagrams
-# Theorical density
+# True density for vector x1
 fyt=wndens(circular(as.numeric(2*atan(x1%*%b1_og)+pi)),
            circular(as.numeric(2*atan(x1%*%b2_og)+pi)),
            circular(as.numeric(2*atan(x1%*%b3_og)+pi)))
 
-dens=fym1[nburn:num,]
-dens=dens[model_beta1==m1 & model_beta2==m2,]
+CircplotEst(fym1[nburn:num,],datos[x[,2]==x1[2]],fyt,9,1.5)
 
-CircplotEst(dens,datos[x[,2]==x1[2]],fyt,9,1.5)
-
-dens=fym2[nburn:num,]
-dens=dens[model_beta1==m1 & model_beta2==m2,]
-
+# True density for vector x2
 fyt=wndens(circular(as.numeric(2*atan(x2%*%b1_og)+pi)),
            circular(as.numeric(2*atan(x2%*%b2_og)+pi)),
            circular(as.numeric(2*atan(x2%*%b3_og)+pi)))
 
-CircplotEst(dens2,datos[x[,2]==x1[1]],fyt,9,1.5)
-
-dens=fym3[nburn:num,]
-dens=dens[model_beta1==m1 & model_beta2==m2,]
+CircplotEst(fym2[nburn:num,],datos[x[,2]==x1[1]],fyt,9,1.5)
+# True density for vector x1
 
 fyt=wndens(circular(as.numeric(2*atan(x3%*%b1_og)+pi)),
            circular(as.numeric(2*atan(x3%*%b2_og)+pi)),
            circular(as.numeric(2*atan(x3%*%b3_og)+pi)))
 
 
-CircplotEst(dens3,datos[x[,2]==x3[2]],fyt,9,1.5)
+CircplotEst(fym3[nburn:num,],datos[x[,2]==x3[2]],fyt,9,1.5)
 
 ```
 The resulting **Figure 2** of the paper proceeds as follows.
