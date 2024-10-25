@@ -410,7 +410,7 @@ The following code generates plots of the true density, conditional rose diagram
 
 ```r
 
-# Function plot circle ----------------------------------------------------
+# Plot conditional histograms and predictive density ----------------------------------------------------
 
 par(mar = c(0,0,0,0), mfrow=c(1,3))
 
