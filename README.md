@@ -59,7 +59,7 @@ We define the hyperparameters for the base measure and the concentration paramet
 # SETTING HYPERPARAMETERS -------------------------------------------------
 
 # NORMAL PRIOR FOR BETA
-tau = 100 # VARIANCE NORMAL DISTRIBUTION
+tau = 3 # VARIANCE NORMAL DISTRIBUTION
 np=dim(x)[2]
 ph=circular(p)
 n=length(datos)
@@ -72,7 +72,7 @@ b0_2 = rep(0,np) # PRIOR MEAN FIRST BETA
 delta0 = diag(invtau,np) # PRIOR PRECISION MATRIX 
 # GAMMA PRIOR CONCENTRATION PARAMETER DIRICHLET
 
-am=20 # SHAPE
+am=2 # SHAPE
 bm=0.1 # RATE
 ```
 ### Models
