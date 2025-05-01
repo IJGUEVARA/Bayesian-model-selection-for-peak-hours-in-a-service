@@ -17,7 +17,8 @@ We generate a 1000 x 3 design matrix with two covariates. Furthermore, we create
 ```r
 set.seed(1234)
 n=1000
-x = cbind(rep(1,n),sample(-1:1, n,replace = T),sample(0:1, n,replace = T))
+xc=runif(n,0,2*pi)
+x = cbind(rep(1,n),sample(-1:1, n,replace = T),sample(0:1, n,replace = T),xc,xc^2)
 p=seq(0,2*pi,length.out = 100)
 ph=circular(p) # POINTS TO PLOT DENSITY
 ```
@@ -26,9 +27,9 @@ Next, we generate data from a **mixture of wrapped normal distributions** with t
 
 ```r
 #Regression coeffients mixture
-b1_og <- c(1.5,2,0) 
-b2_og <- c(-0.5,-1.7,0)
-b3_og <-c(-3,2.5,0)
+b1_og <- c(1.5,2,0,1.5,0) 
+b2_og <- c(-3,2.5,0,-1.8,0)
+b3_og <- c(-0.5,-1.7,0,-1.6,0)
 
 # Angles
 theta1 <- 2*atan(x%*%b1_og)+pi
