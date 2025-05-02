@@ -421,14 +421,14 @@ fyt=wndens(circular(as.numeric(2*atan(x1%*%b1_og)+pi)),
            circular(as.numeric(2*atan(x1%*%b2_og)+pi)),
            circular(as.numeric(2*atan(x1%*%b3_og)+pi)))
 
-CircplotEst(fym1[nburn:num,],datos[x[,2]==x1[2]],fyt,9,1.5)
+CircplotEst(fym1[nburn:num,],datos[x[,2]==x1[2]],fyt,9,1.9)
 
 # True density for vector x2
 fyt=wndens(circular(as.numeric(2*atan(x2%*%b1_og)+pi)),
            circular(as.numeric(2*atan(x2%*%b2_og)+pi)),
            circular(as.numeric(2*atan(x2%*%b3_og)+pi)))
 
-CircplotEst(fym2[nburn:num,],datos[x[,2]==x1[1]],fyt,9,1.5)
+CircplotEst(fym2[nburn:num,],datos[x[,2]==x1[1]],fyt,9,1.9)
 
 # True density for vector x3
 fyt=wndens(circular(as.numeric(2*atan(x3%*%b1_og)+pi)),
@@ -436,7 +436,7 @@ fyt=wndens(circular(as.numeric(2*atan(x3%*%b1_og)+pi)),
            circular(as.numeric(2*atan(x3%*%b3_og)+pi)))
 
 
-CircplotEst(fym3[nburn:num,],datos[x[,2]==x3[2]],fyt,9,1.5)
+CircplotEst(fym3[nburn:num,],datos[x[,2]==x3[2]],fyt,9,1.9)
 
 ```
 Finally, the code generates **Figure 1** from the paper.
